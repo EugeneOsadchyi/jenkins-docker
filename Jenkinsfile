@@ -46,7 +46,7 @@ pipeline {
                                 configName: sshServerConfigName,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: '''docker ps -q -f name=jenkins-docker'''
+                                        execCommand: 'docker ps -q -f name=jenkins-docker'
                                     )
                                 ],
                                 verbose: true
