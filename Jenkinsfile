@@ -4,6 +4,7 @@ pipeline {
     environment {
         dockerImageName = 'eosadchiy/jenkins-docker'
         dockerRegistryCredentials = 'docker-hub'
+        sshServerConfigName = 'web-srv'
     }
 
     stages {
@@ -30,6 +31,28 @@ pipeline {
                         app.push("${env.BUILD_NUMBER}")
                         app.push('latest')
                     }
+                }
+            }
+        }
+
+        stage('Deploy to the Web Server') {
+            steps {
+                script {
+                    sshPublisher(
+                        continueOnError: false,
+                        failOnError: true,
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: sshServerConfigName,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'docker ps',
+                                    )
+                                ],
+                                verbose: true
+                            )
+                        ]
+                    )
                 }
             }
         }
