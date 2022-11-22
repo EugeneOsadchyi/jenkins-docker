@@ -13,7 +13,7 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                 app = docker.build("jenkins-docker")
+                 app = docker.build("eosadchiy/jenkins-docker")
                 }
             }
         }
@@ -22,7 +22,6 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'docker-hub') {
-                        app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
                 }
