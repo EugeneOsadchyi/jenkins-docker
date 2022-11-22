@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        dockerImageName = 'eosadchiy/jenkins-docker'
+        dockerRegistryCredentials = 'docker-hub'
+    }
+
     stages {
         stage('Clone repository') {
             steps {
@@ -13,7 +18,7 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                 app = docker.build("eosadchiy/jenkins-docker")
+                 app = docker.build(dockerImageName)
                 }
             }
         }
@@ -21,8 +26,9 @@ pipeline {
         stage('Push image to Docker HUB') {
             steps {
                 script {
-                    docker.withRegistry('', 'docker-hub') {
-                        app.push("latest")
+                    docker.withRegistry('', dockerRegistryCredentials) {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push('latest')
                     }
                 }
             }
