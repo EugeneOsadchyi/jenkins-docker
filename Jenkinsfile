@@ -48,7 +48,7 @@ pipeline {
                                     sshTransfer(
                                         execCommand: '''if [ "$(docker ps -q -f name=jenkins-docker)" ]; then
                                             docker rm -f $(docker ps -aq -f name=jenkins-docker)
-                                            docker run -d --name jenkins-docker -p 8081:80 --pull "always" eosadchiy/jenkins-docker:latest
+                                            docker run -d --name jenkins-docker -p 8081:80 --pull "always" ${dockerImageName}:latest
                                         fi'''
                                     )
                                 ],
