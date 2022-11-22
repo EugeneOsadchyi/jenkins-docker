@@ -50,7 +50,7 @@ pipeline {
                                         then
                                             docker rm -f $(docker ps -aq -f name=jenkins-docker)
                                         fi
-                                        docker run -d --name jenkins-docker -p 8081:80 --pull "always" ${dockerImageName}:latest
+                                        docker run -d --name jenkins-docker -p 8081:80 --pull always eosadchiy/jenkins-docker:latest
                                         '''
                                     )
                                 ],
