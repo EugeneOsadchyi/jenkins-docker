@@ -46,10 +46,7 @@ pipeline {
                                 configName: sshServerConfigName,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: '''if [ "$(docker ps -q -f name=jenkins-docker)" ]; then
-                                            docker rm -f $(docker ps -aq -f name=jenkins-docker)
-                                            docker run -d --name jenkins-docker -p 8081:80 --pull "always" ${dockerImageName}:latest
-                                        fi'''
+                                        execCommand: '''$(docker ps -q -f name=jenkins-docker)'''
                                     )
                                 ],
                                 verbose: true
