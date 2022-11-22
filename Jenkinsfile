@@ -1,21 +1,13 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
+        stages {
+            stage('Clone repository') {
+                    steps {
+                        script{
+                            checkout scm
+                        }
+                }
         }
     }
 }
