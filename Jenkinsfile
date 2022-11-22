@@ -46,9 +46,9 @@ pipeline {
                                 configName: sshServerConfigName,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: '''
+                                        execCommand: "
                                             docker ps
-                                        '''
+                                        "
                                     )
                                 ],
                                 verbose: true
